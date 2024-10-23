@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Editor</title>
+    <link href="https://cdn.syncfusion.com/ej2/19.4.55/material.css" rel="stylesheet">
+    <script src="https://cdn.syncfusion.com/ej2/19.4.55/dist/ej2.min.js"></script>
+    <script>
+        function uploadDocument() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(url => {
+                    document.getElementById('documentEditor').value = url;
+                    // Load the document in the Document Editor
+                    // Assuming you will implement the logic to load it
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Syncfusion Document Editor</h1>
+<input type="file" id="fileInput" />
+<button onclick="uploadDocument()">Upload Document</button>
+<div id="documentEditor" style="width: 100%; height: 500px;"></div>
+<script>
+    const documentEditor = new ej.documents.DocumentEditor({
+        // Set necessary properties and options here
+    });
+    documentEditor.appendTo('#documentEditor');
+</script>
+</body>
+</html>
